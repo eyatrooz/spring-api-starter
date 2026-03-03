@@ -1,5 +1,6 @@
 package com.codewithmosh.store.controllers;
 
+import com.codewithmosh.store.dtos.ChangePasswordRequest;
 import com.codewithmosh.store.dtos.CreateUserRequest;
 import com.codewithmosh.store.dtos.UpdateUserRequest;
 import com.codewithmosh.store.dtos.UserDto;
@@ -7,6 +8,8 @@ import com.codewithmosh.store.mappers.UserMapper;
 import com.codewithmosh.store.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriBuilder;
@@ -70,6 +73,36 @@ public class UserController {
         userRepository.save(user);
 
         return ResponseEntity.ok(userMapper.userToUserDto(user));
+
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDto> delete_user(@PathVariable(name = "id") Long id){
+
+        var user = userRepository.findById(id).orElse(null);
+        if(user == null){
+            return ResponseEntity.notFound().build();
+        }
+        userRepository.delete(user);
+        return ResponseEntity.ok(userMapper.userToUserDto(user));
+    }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<Void> changePassword(@PathVariable(name = "id") Long id, @RequestBody ChangePasswordRequest request){
+
+        var user = userRepository.findById(id).orElse(null);
+        if(user == null){
+            return ResponseEntity.notFound().build();
+        }
+
+        if(!user.getPassword().equals(request.getOldPassword())){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+//        userMapper.changePassword(request, user);   this works too
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
+
+        return ResponseEntity.noContent().build();
 
     }
 
