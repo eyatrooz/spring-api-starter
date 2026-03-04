@@ -93,11 +93,9 @@ public class UserController {
         if(user == null){
             return ResponseEntity.notFound().build();
         }
-
         if(!user.getPassword().equals(request.getOldPassword())){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
 //        userMapper.changePassword(request, user);   this works too
         user.setPassword(request.getNewPassword());
         userRepository.save(user);
