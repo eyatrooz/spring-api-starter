@@ -90,6 +90,13 @@
             <version>1.6.3</version>
         </dependency>
 
+        <!-- validation-->
+        <dependency>
+                <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+
 
 
 
