@@ -107,11 +107,10 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>10.15.0</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/store_api?createDatabaseIfNotExist=true</url>
                     <user>root</user>
-                    <password>MyPassword!</password>
+                    <password>0000</password>
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>
