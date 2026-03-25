@@ -4,6 +4,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Environment & Secrets
+.env
+*.env
+application-local.yaml
+application-local.properties
+application-secrets.yaml
+
 ### STS ###
 .apt_generated
 .classpath
@@ -12,6 +19,14 @@ target/
 .settings
 .springBeans
 .sts4-cache
+
+gitignore### OS Files ###
+.DS_Store
+Thumbs.db
+
+### Logs ###
+*.log
+logs/
 
 ### IntelliJ IDEA ###
 .idea
